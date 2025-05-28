@@ -190,16 +190,16 @@ function createModal() {
         <div class="modal" id="menuModal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <img src="../src/logo.png" alt="Школа Электроники Логотип" class="modal-logo">
+                    <img src="src/logo.png" alt="Школа Электроники Логотип" class="modal-logo">
                     <button class="close-button">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <div class="modal-body">
                     <nav class="menu-nav">
-                        <a href="../index.html" class="menu-item">Главная</a>
+                        <a href="index.html" class="menu-item">Главная</a>
                         <a href="#" class="menu-item">О нас</a>
-                        <a href="../achievement/achievement.html" class="menu-item">Достижения</a>
+                        <a href="achievement/achievement.html" class="menu-item">Достижения</a>
                         <a href="#" class="menu-item">Контакты</a>
                     </nav>
                 </div>
