@@ -1,0 +1,60 @@
+/* Стили для кастомного скроллбара */
+.custom-scrollbar {
+    position: fixed;
+    top: 0;
+    right: 10px;
+    height: 100vh;
+    width: 6px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.scrollbar-track {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    pointer-events: auto;
+}
+
+.scrollbar-thumb {
+    position: absolute;
+    width: 100%;
+    min-height: 20px; /* Минимальная высота ползунка */
+    background: rgba(59, 216, 255, 0.2);
+    border-radius: 3px;
+    transition: background 0.3s ease, height 0.3s ease;
+    cursor: pointer;
+    pointer-events: auto;
+    top: 0; /* Начальная позиция */
+}
+
+.scrollbar-thumb:hover {
+    background: rgba(0, 170, 255, 0.3);
+}
+
+/* Скрываем стандартный скроллбар */
+::-webkit-scrollbar {
+    display: none;
+}
+
+* {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+/* Медиа-запросы для адаптивности */
+@media screen and (max-width: 768px) {
+    .custom-scrollbar {
+        width: 4px;
+        right: 5px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .custom-scrollbar {
+        width: 3px;
+        right: 3px;
+    }
+} 

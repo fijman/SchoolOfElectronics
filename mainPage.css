@@ -1,0 +1,275 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+/* Определение шрифта Gen Jyuu Gothic Heavy */
+@font-face {
+    font-family: 'Gen Jyuu Gothic Heavy';
+    src: url('achievement/Gen\ Jyuu\ Gothic\ Heavy.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Стилизация скроллбара */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(59, 216, 255, 0.2);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 170, 255, 0.2);
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(59, 216, 255, 0.2) transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Rajdhani', sans-serif;
+    line-height: 1.6;
+    background-color: #0d0d0d;
+    color: #e0e0e0;
+    overflow: hidden;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.block {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(/src/background.jpg);
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    z-index: 2;
+    scroll-snap-align: start;
+}
+
+.content {
+    text-align: center;
+    margin-top: -400px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.content:hover {
+    transform: scale(1.05);
+}
+
+#lab {
+    width: 100%;
+    background-size: cover;
+    position: absolute;
+    z-index: 3;
+    bottom: 0;
+    object-fit: contain;
+    margin-bottom: 0;
+}
+
+#school {
+    position: absolute; /* Используем абсолютное позиционирование */
+    top: 50%; /* Сдвигаем верхний край к середине */
+    left: 50%; /* Сдвигаем левый край к середине */
+    transform: translate(-50%, -50%); /* Сдвигаем обратно на половину своих размеров */
+    max-width: 90%; /* Максимальная ширина 90% от родителя */
+    max-height: 90vh; /* Максимальная высота 90% от высоты вьюпорта */
+    width: auto; /* Ширина будет адаптивной */
+    height: auto; /* Высота будет адаптивной */
+    object-fit: contain; /* Масштабируем изображение, сохраняя пропорции */
+    z-index: 3; /* Убедимся, что изображение поверх фона */
+}
+
+#logo {
+    position: absolute;
+    width: 200px;
+    right: 30px;
+    bottom: 200px;
+    transition: transform 0.3s ease-in-out;
+}
+
+#logo:active {
+    transform: scale(1.05);
+}
+
+/* Стили для кнопки меню */
+.menu-button {
+    position: fixed;
+    top: 40px;
+    left: 40px;
+    z-index: 10;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0px;
+    font-size: 4rem;
+    color: #ffeb3b;
+    transition: color 0.3s ease;
+    outline: none; /* Убираем обводку при фокусе */
+    -webkit-tap-highlight-color: transparent; /* Убираем подсветку при тапе на мобильных */
+}
+
+.menu-button:hover {
+    color: #ffe000;
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out; /* Добавляем плавный переход для трансформации */
+}
+
+/* Убираем обводку при фокусе для всех браузеров */
+.menu-button:focus {
+    outline: none;
+    box-shadow: none;
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out; /* Добавляем плавный переход для трансформации */
+}
+
+/* Стили для текста "Школа Электроники" */
+.school-word1 {
+    font-family: 'Gen Jyuu Gothic Heavy', sans-serif; /* Используем ваш шрифт */
+    font-size: 8rem; /* Размер шрифта */
+    color: #ffffff; /* Белый цвет для "Школа" */
+    text-shadow: 
+    -1px -1px 0 rgb(46, 189, 255),
+     1px -1px 0 rgb(46, 189, 255),
+    -1px  1px 0 rgb(46, 189, 255),
+     1px  1px 0 rgb(46, 189, 255);
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.school-word2 {
+    font-family: 'Gen Jyuu Gothic Heavy', sans-serif; /* Используем ваш шрифт */
+    font-size: 7rem; /* Размер шрифта, немного меньше */
+    color: #ffeb3b; /* Яркий желтый для "Электроники" */
+    text-shadow: 
+    -1px -1px 0 rgb(248, 248, 248),
+     1px -1px 0 rgb(248, 248, 248),
+    -1px  1px 0 rgb(248, 248, 248),
+     1px  1px 0 rgb(248, 248, 248);
+    font-weight: 400;
+    letter-spacing: 1.5px;
+}
+
+/* Медиа-запросы для адаптивности */
+
+@media screen and (min-width: 1000px) {
+
+#logo{
+    top: 500px;
+    bottom: auto;
+    right: auto;
+
+}    
+#logo:hover{
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out; /* Добавляем плавный переход для трансформации */
+}
+}
+
+@media screen and (max-width: 1200px) {
+    .school-word1 {
+        font-size: 6rem;
+    }
+    .school-word2 {
+        font-size: 5rem;
+    }
+    .content {
+        margin-top: -300px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .school-word1 {
+        font-size: 4rem;
+    }
+    .school-word2 {
+        font-size: 3.5rem;
+    }
+    .content {
+        margin-top: -200px;
+    }
+    .menu-button {
+        font-size: 2.5rem;
+        top: 20px;
+        left: 20px;
+    }
+
+    #logo {
+        width: 150px;
+        right: 30px;
+        bottom: 230px;
+    }
+
+    .custom-scrollbar {
+        width: 4px;
+        right: 5px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .school-word1 {
+        font-size: 3rem;
+    }
+    .school-word2 {
+        font-size: 2.5rem;
+    }
+    .content {
+        margin-top: -150px;
+    }
+    .menu-button {
+        font-size: 2rem;
+        top: 15px;
+        left: 15px;
+    }
+
+    #logo {
+        width: 120px;
+       
+
+    }
+
+    .custom-scrollbar {
+        width: 3px;
+        right: 3px;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media screen and (max-width: 320px) {
+    .school-word1 {
+        font-size: 2.5rem;
+    }
+    .school-word2 {
+        font-size: 2rem;
+    }
+    .content {
+        margin-top: -100px;
+    }
+    .menu-button {
+        font-size: 2rem;
+    }
+}
+
+/* Удаляем стили кастомного скроллбара, так как они теперь в отдельном файле */
+

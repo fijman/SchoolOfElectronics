@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Достижения - Школа Электроники</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="../scrollbar.css">
+    <link rel="stylesheet" href="../modal.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <button class="menu-button">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="custom-scrollbar">
+        <div class="scrollbar-track">
+            <div class="scrollbar-thumb"></div>
+        </div>
+    </div>
+
+    <section class="block" id="block1">
+        <div class="content">
+            <h1>Достижения наших учеников</h1>
+            <p>Гордимся успехами каждого!</p>
+        </div>
+    </section>
+
+    <section class="block" id="block2">
+        <div class="content">
+            <div class="achievements-container">
+                <div class="achievement-card">
+                    <div class="achievement-header">
+                        <div class="avatar-info">
+                            <img
+                                src="ChatGPT Image 25 мая 2025 г., 19_57_38-восстановлено.png"
+                                alt="Фото ученика"
+                                class="avatar"
+                            />
+                            <div class="text-info">
+                                <h3 class="name">Иванов Иван</h3>
+                                <p class="description">
+                                    Награжден на областном конкурсе 25.05.2025.<br />
+                                    Разработал инновационную систему автоматического полива растений с использованием Arduino.<br />
+                                    Проект занял первое место на городской олимпиаде по робототехнике.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="certificates-slider">
+                        <img src="грамота.png" alt="Грамота 1" />
+                        <img src="Монтажная область 1.png" alt="Грамота 2" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block" id="block2">
+        <div class="content">
+            <div class="achievements-container">
+                <div class="achievement-card">
+                    <div class="achievement-header">
+                        <div class="avatar-info">
+                            <img
+                                src="ChatGPT Image 25 мая 2025 г., 19_57_38-восстановлено.png"
+                                alt="Фото ученика"
+                                class="avatar"
+                            />
+                            <div class="text-info">
+                                <h3 class="name">Иванов Иван</h3>
+                                <p class="description">
+                                    Награжден на областном конкурсе 25.05.2025.<br />
+                                    Разработал инновационную систему автоматического полива растений с использованием Arduino.<br />
+                                    Проект занял первое место на городской олимпиаде по робототехнике.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="certificates-slider">
+                        <img src="грамота.png" alt="Грамота 1" />
+                        <img src="Монтажная область 1.png" alt="Грамота 2" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block" id="block10">
+        <div class="content">
+            <h2>Присоединяйтесь к нам!</h2>
+            <p>Станьте частью нашей инновационной команды</p>
+            <div class="contact-info">
+                <p>Email: info@electronicschool.ru</p>
+                <p>Телефон: +7 (XXX) XXX-XX-XX</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальное окно для просмотра грамот -->
+    <div id="certificateModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script src="../modal.js"></script>
+    <script src="../scrollbar.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const blocks = document.querySelectorAll('.block');
+            let currentBlockIndex = 0;
+            let isScrolling = false;
+            let lastScrollTime = 0;
+            const scrollCooldown = 700;
+
+            function throttleScroll(callback) {
+                const now = Date.now();
+                if (now - lastScrollTime > scrollCooldown) {
+                    lastScrollTime = now;
+                    callback();
+                }
+            }
+
+            function scrollToBlock(index) {
+                if (index >= 0 && index < blocks.length && !isScrolling) {
+                    isScrolling = true;
+                    currentBlockIndex = index;
+                    window.scrollTo({
+                        top: blocks[currentBlockIndex].offsetTop,
+                        behavior: 'smooth'
+                    });
+                    setTimeout(() => { isScrolling = false }, 700);
+                }
+            }
+
+            // ==================== Swipe и Scroll ====================
+            blocks.forEach(block => {
+                let startY, startX;
+
+                block.addEventListener('touchstart', e => {
+                    if (e.touches.length === 1) {
+                        startY = e.touches[0].clientY;
+                        startX = e.touches[0].clientX;
+                    }
+                }, { passive: true });
+
+                block.addEventListener('touchend', e => {
+                    if (typeof startY === 'undefined' || e.changedTouches.length !== 1) return;
+
+                    const endY = e.changedTouches[0].clientY;
+                    const endX = e.changedTouches[0].clientX;
+                    const deltaY = endY - startY;
+                    const deltaX = endX - startX;
+                    const swipeThreshold = 50;
+                    const minVerticalRatio = 2;
+
+                    if (Math.abs(deltaY) > swipeThreshold && Math.abs(deltaY) > Math.abs(deltaX) * minVerticalRatio) {
+                        const currentIndex = Array.from(blocks).indexOf(block);
+                        throttleScroll(() => {
+                            if (deltaY < 0) scrollToBlock(currentIndex + 1);
+                            else scrollToBlock(currentIndex - 1);
+                        });
+                    }
+
+                    startY = undefined;
+                    startX = undefined;
+                }, { passive: true });
+            });
+
+            window.addEventListener('wheel', e => {
+                e.preventDefault();
+                if (isScrolling) return;
+
+                const direction = e.deltaY > 0 ? 1 : -1;
+                throttleScroll(() => {
+                    scrollToBlock(currentBlockIndex + direction);
+                });
+            }, { passive: false });
+
+            window.addEventListener('keydown', e => {
+                if (isScrolling) return;
+                if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    const direction = e.key === 'ArrowDown' ? 1 : -1;
+                    scrollToBlock(currentBlockIndex + direction);
+                }
+            });
+
+            // ==================== Intersection Observer (текущий блок) ====================
+            const blockScrollObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        currentBlockIndex = Array.from(blocks).indexOf(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            blocks.forEach(block => blockScrollObserver.observe(block));
+
+            // ==================== Модальное окно для грамот ====================
+            const certificateModal = document.getElementById('certificateModal');
+            const modalImg = document.getElementById('modalImage');
+            const closeBtn = document.querySelector('.close');
+            const certificateImages = document.querySelectorAll('.certificates-slider img');
+
+            certificateImages.forEach(img => {
+                img.addEventListener('click', () => {
+                    certificateModal.classList.add('active');
+                    modalImg.src = img.src;
+                });
+            });
+
+            closeBtn.addEventListener('click', () => {
+                certificateModal.classList.remove('active');
+            });
+
+            certificateModal.addEventListener('click', (e) => {
+                if (e.target === certificateModal) {
+                    certificateModal.classList.remove('active');
+                }
+            });
+
+            // ==================== Анимация карточек достижений ====================
+            const achievementCards = document.querySelectorAll('.achievement-card');
+            let hoverTimeout;
+
+            achievementCards.forEach(card => {
+                // Добавляем наблюдатель для анимации
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Удаляем класс анимации перед добавлением для повторного срабатывания
+                            entry.target.classList.remove('animate');
+                            // Используем setTimeout для гарантии перезапуска анимации
+                            setTimeout(() => {
+                                entry.target.classList.add('animate');
+                            }, 10);
+                        }
+                    });
+                }, { threshold: 0.2 });
+
+                observer.observe(card);
+
+                // Добавляем эффект при наведении
+                card.addEventListener('mouseenter', () => {
+                    card.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+                    hoverTimeout = setTimeout(() => {
+                        card.style.boxShadow = '0 0 8px rgba(0, 150, 255, 0.15)';
+                    }, 1000);
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    clearTimeout(hoverTimeout);
+                    card.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+                    card.style.boxShadow = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

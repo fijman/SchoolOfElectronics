@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Школа Электроники</title>
+    <link rel="stylesheet" href="mainPage.css">
+    <link rel="stylesheet" href="scrollbar.css">
+    <link rel="stylesheet" href="../modal.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <button class="menu-button">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="custom-scrollbar">
+        <div class="scrollbar-track">
+            <div class="scrollbar-thumb"></div>
+        </div>
+    </div>
+
+    <section class="block" id="block1">
+        <img src="src\Без названия27_20250526180526.png" id="logo">
+        <div class="content">
+            <p>
+                <span class="school-word1">Школа</span><br>
+                <span class="school-word2">Электроники</span>
+            </p>
+        </div>
+    </section>
+
+    <section class="block" id="block2">
+        <img src="src\Без названия27_20250526180526.png" id="logo">
+        <div class="content">
+            <p>
+                <span class="school-word1">Школа</span><br>
+                <span class="school-word2">Электроники</span>
+            </p>
+        </div>
+    </section>
+
+    <section class="block" id="block3">
+        <img src="src\Без названия27_20250526180526.png" id="logo">
+        <div class="content">
+            <p>
+                <span class="school-word1">Школа</span><br>
+                <span class="school-word2">Электроники</span>
+            </p>
+        </div>
+    </section>
+
+    <script src="../modal.js"></script>
+    <script src="scrollbar.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.block');
+            let currentSection = 0;
+            let isScrolling = false;
+            let lastScrollTime = 0;
+            const scrollCooldown = 1000;
+            let touchStartY = 0;
+            let touchEndY = 0;
+            const minSwipeDistance = 50;
+
+            // Прокрутка к секции
+            function scrollToSection(index) {
+                if (index >= 0 && index < sections.length && !isScrolling) {
+                    isScrolling = true;
+                    currentSection = index;
+                    
+                    sections[index].scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    setTimeout(() => {
+                        isScrolling = false;
+                    }, scrollCooldown);
+                }
+            }
+
+            // Обработчик колеса мыши
+            window.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const now = Date.now();
+                
+                if (now - lastScrollTime < scrollCooldown) return;
+                lastScrollTime = now;
+
+                if (e.deltaY > 0) {
+                    scrollToSection(currentSection + 1);
+                } else {
+                    scrollToSection(currentSection - 1);
+                }
+            }, { passive: false });
+
+            // Обработчик клавиш
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    const now = Date.now();
+                    
+                    if (now - lastScrollTime < scrollCooldown) return;
+                    lastScrollTime = now;
+
+                    if (e.key === 'ArrowDown') {
+                        scrollToSection(currentSection + 1);
+                    } else {
+                        scrollToSection(currentSection - 1);
+                    }
+                }
+            });
+
+            // Обработчики для тач-устройств
+            document.addEventListener('touchstart', (e) => {
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+
+            document.addEventListener('touchmove', (e) => {
+                e.preventDefault(); // Предотвращаем стандартную прокрутку
+            }, { passive: false });
+
+            document.addEventListener('touchend', (e) => {
+                touchEndY = e.changedTouches[0].clientY;
+                const swipeDistance = touchEndY - touchStartY;
+                const now = Date.now();
+
+                if (now - lastScrollTime < scrollCooldown) return;
+                lastScrollTime = now;
+
+                if (Math.abs(swipeDistance) > minSwipeDistance) {
+                    if (swipeDistance > 0) {
+                        // Свайп вниз - предыдущая секция
+                        scrollToSection(currentSection - 1);
+                    } else {
+                        // Свайп вверх - следующая секция
+                        scrollToSection(currentSection + 1);
+                    }
+                }
+            }, { passive: true });
+
+            // Предотвращаем масштабирование на мобильных устройствах
+            document.addEventListener('gesturestart', (e) => {
+                e.preventDefault();
+            });
+
+            // Инициализация начальной секции
+            scrollToSection(0);
+        });
+    </script>
+</body>
+</html>
